@@ -1,5 +1,6 @@
 package com.ge.predevcatcheat.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -7,6 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.sql.Date;
 
 @Entity
 @Getter
@@ -22,9 +25,27 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)     // DB의 AUTO_INCREMENT
-    private int userNo;
+    private int userNo; // 내부적으로 사용하는 기본 키
 
-    private String email;
-    private String userName;
-    private String password;
+    @Column(nullable = false, length = 20)
+    private String provider;                                // "LOCAL", "GOOGLE", "KAKAO", "APPLE"
+
+    @Column(nullable = true, length = 100, unique = true)
+    private String providerId;                              // SNS 로그인 ID (LOCAL 사용자는 NULL)
+
+    @Column(nullable = true, length = 255, unique = true)
+    private String email;                                   // LOCAL 로그인 ID (SNS 사용자는 선택 사항)
+
+    private String password;                                // LOCAL 사용자만 사용
+
+    private String nickname;
+
+    @Column(name = "profile_image_url")
+    private String profileImageUrl;
+
+    @Column(name = "created_at")
+    private Date createdAt;
+
+    @Column(name = "updated_at")
+    private Date updatedAt;
 }
