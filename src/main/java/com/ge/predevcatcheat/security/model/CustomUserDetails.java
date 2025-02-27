@@ -1,14 +1,15 @@
 package com.ge.predevcatcheat.security.model;
 
 import com.ge.predevcatcheat.entity.User;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
+@Getter
 public class CustomUserDetails implements UserDetails {
 
     /** CustomUserDetails는 왜 필요한가?
@@ -66,7 +67,4 @@ public class CustomUserDetails implements UserDetails {
         return true;
     }
 
-    public User getUser() {
-        return user;
-    }
 }
