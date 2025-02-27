@@ -1,4 +1,5 @@
-# 🔐 로그인 & 인증 구조 (250226.이의선.작성)
+# 🔐 로그인/회원가입 & 인증 구조
+### 250227.이의선.수정
 
 ## 1️⃣ 사용자 로그인 요청 흐름
 
@@ -22,11 +23,13 @@
 ```
 src/main/java/com/ge/predevcatcheat
  ├── config/                        # 설정 관련 (Spring Security 포함)
- │    ├── SecurityConfig.java        # Spring Security 설정 클래스
- │    ├── OAuth2Config.java          # OAuth2 설정 (필요한 경우)
+ │    ├── SecurityConfig.java       # Spring Security 설정 클래스
+ │    ├── OAuth2Config.java         # OAuth2 설정 (필요한 경우)
+ │    ├── WebConfig.java            # 정적 자원 및 View Resolver 설정
  │
  ├── controller/
- │    ├── AuthController.java        # 로그인 관련 컨트롤러 (필요하면 추가)
+ │    ├── HomeController.java       # 메인 페이지 컨트롤러 (Thymeleaf)
+ │    ├── AuthController.java       # 로그인/회원가입 관련 컨트롤러
  │
  ├── dto/
  │    ├── UserDto.java
@@ -37,24 +40,41 @@ src/main/java/com/ge/predevcatcheat
  ├── repository/
  │    ├── UserRepository.java
  │
- ├── security/                      # 인증 관련 패키지 추가 (🔹새롭게 추가)
+ ├── security/                                  # 인증 관련 패키지
  │    ├── service/
- │    │    ├── CustomUserDetailsService.java  # UserDetailsService 구현
- │    │    ├── CustomOAuth2UserService.java   # OAuth2UserService 구현
+ │    │    ├── CustomUserDetailsService.java    # UserDetailsService 구현
+ │    │    ├── CustomOAuth2UserService.java     # OAuth2UserService 구현
  │    │
  │    ├── model/
- │    │    ├── CustomUserDetails.java        # UserDetails 구현체
- │    │    ├── OAuth2UserInfo.java           # SNS 유저 정보 추상 클래스
- │    │    ├── GoogleUserInfo.java           # Google 로그인 정보
- │    │    ├── KakaoUserInfo.java            # Kakao 로그인 정보
+ │    │    ├── CustomUserDetails.java           # UserDetails 구현체
+ │    │    ├── OAuth2UserInfo.java              # SNS 유저 정보 추상 클래스
+ │    │    ├── GoogleUserInfo.java              # Google 로그인 정보
+ │    │    ├── KakaoUserInfo.java               # Kakao 로그인 정보
  │    │
- │    ├── jwt/                              # JWT 사용 시 추가 (선택)
- │    │    ├── JwtTokenProvider.java        # JWT 토큰 생성 및 검증
- │    │    ├── JwtAuthenticationFilter.java # JWT 필터
+ │    ├── jwt/                                  # JWT 사용 시 추가 (선택)
+ │    │    ├── JwtTokenProvider.java            # JWT 토큰 생성 및 검증
+ │    │    ├── JwtAuthenticationFilter.java     # JWT 필터
  │
  ├── service/
  │    ├── IUserService.java
  │    ├── UserServiceImplementation.java
+ │
+ ├── view/                           # Thymeleaf 템플릿 폴더 (resources/templates/)
+ │    ├── layout/                    # 공통 레이아웃 파일
+ │    │    ├── header.html           # 헤더
+ │    │    ├── footer.html           # 푸터
+ │    │    ├── main.html             # 메인 레이아웃
+ │    │
+ │    ├── auth/                      # 로그인/회원가입 관련 뷰
+ │    │    ├── login.html            # 로그인 페이지
+ │    │    ├── register.html         # 회원가입 페이지
+ │    │
+ │    ├── home.html                  # 메인 페이지
+ │
+ ├── static/                         # 정적 자원 폴더 (resources/static/)
+ │    ├── css/                       # CSS 파일
+ │    ├── js/                        # JS 파일
+ │    ├── images/                    # 이미지 파일
  │
  ├── PreDevCatchEatApplication.java
 
