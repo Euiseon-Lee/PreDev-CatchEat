@@ -7,7 +7,22 @@ CREATE TABLE t_user_info (
     , nickname          VARCHAR(50)                      -- 닉네임
     , profile_image_url VARCHAR(500)                     -- 프로필 이미지 URL
     , created_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP                             -- 생성 시간
-    , updated_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP -- 수정 시간
+    , updated_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP                             -- 수정 시간 >> 트리거로 업데이트
 
-    , CONSTRAINT uq_provider UNIQUE (provider, provider_id) -- SNS 로그인 중복 방지
+    , CONSTRAINT uq_provider UNIQUE (provider, provider_id)
 );
+
+-- updated_at 자동 갱신을 위한 트리거 함수 생성
+CREATE FUNCTION update_updated_at_column()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_at = CURRENT_TIMESTAMP;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- 트리거 추가
+CREATE TRIGGER trigger_update_updated_at
+BEFORE UPDATE ON t_user_info
+FOR EACH ROW
+EXECUTE FUNCTION update_updated_at_column();
