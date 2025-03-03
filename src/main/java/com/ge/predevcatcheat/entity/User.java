@@ -14,7 +14,7 @@ import java.sql.Date;
 @Entity
 @Getter
 @Setter
-@Table(name="t_user_info")
+@Table(name="user_info")
 public class User {
 
     /** Entity란?
@@ -25,7 +25,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)     // DB의 AUTO_INCREMENT
-    private int userNo; // 내부적으로 사용하는 기본 키
+    private int userId; // 내부적으로 사용하는 기본 키
 
     @Column(nullable = false, length = 20)
     private String provider;                                // "LOCAL", "GOOGLE", "KAKAO", "APPLE"
