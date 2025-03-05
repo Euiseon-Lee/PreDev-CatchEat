@@ -4,6 +4,8 @@ import com.ge.predevcatcheat.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
     /** DAO, 데이터 접근 계층과 거의 유사
@@ -73,5 +75,13 @@ public interface UserRepository extends JpaRepository<User, Integer> {
      *     @Column(nullable = false, length = 50) 등의 추가 설정도 가능
      *     데이터베이스의 테이블 이름이 대소문자를 구분하는 경우 (@Table(name = "")로 명시하는 것이 안전)
      */
-    User findByEmail(String email);
+
+    /**
+     *  Optional을 사용하는 이유
+     *  - Optional은 값이 존재하지 않을 수도 있는 경우를 안전하게 처리할 수 있도록 도와주는 클래스.
+     *  - Optional을 사용하면 null 값을 처리하는 방식이 명확해지고, 이를 통해 예외나 NullPointerException을 예방.
+     * @param email
+     * @return
+     */
+    Optional<User> findByEmail(String email);  // Optional<User>를 반환하도록 수정
 }

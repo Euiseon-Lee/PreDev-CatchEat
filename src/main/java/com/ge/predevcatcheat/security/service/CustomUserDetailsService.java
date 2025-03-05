@@ -8,6 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
     /** CustomOAuth2UserService의 역할
@@ -32,10 +34,12 @@ public class CustomUserDetailsService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email);
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found with email: " + email);
-        }
+        // findByEmail은 Optional을 반환하므로 isPresent()로 확인
+        Optional<User> userOptional = userRepository.findByEmail(email);
+
+        User user = userOptional.orElseThrow(() ->
+            new UsernameNotFoundException("User not found with email: " + email));
+
         return new CustomUserDetails(user); // UserDetails 구현체 반환
     }
 }

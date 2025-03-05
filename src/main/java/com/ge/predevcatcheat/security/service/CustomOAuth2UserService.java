@@ -42,7 +42,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         String provider = userRequest.getClientRegistration().getRegistrationId();
         String email = oAuth2User.getAttribute("email");
 
-        Optional<User> userOptional = Optional.ofNullable(userRepository.findByEmail(email));
+        Optional<User> userOptional = userRepository.findByEmail(email);
 
         User user;
         if (userOptional.isPresent()) {
