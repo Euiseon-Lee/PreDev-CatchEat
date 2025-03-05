@@ -6,6 +6,13 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
+    /** DAO, 데이터 접근 계층과 거의 유사
+     *  JPA를 사용해 DB에서 데이터를 읽고 쓰는 역할 => 실제 DB와 상호작용하는 역할
+     *  JpaRepository<User, Long>을 상속하면 자동으로 CRUD 기능 제공
+     *  User 엔터티에 대한 CRUD(Create, Read, Update, Delete) 작업을 수행
+     *  쿼리를 직접 작성하지 않아도 됨.
+     */
+
     /** 1. JDBC + SQL
      *  SQL을 직접 작성 및 실행해야 함.
      *  ResultSet을 수동으로 맵핑 필요 >> ResultSet을 User 객체로 변환하는 작업 필요
@@ -40,6 +47,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
      *      == Spring Data JPA를 사용하면 Hibernate를 직접 코드에서 다루지 않더라도 Hibernate가 백그라운드에서 동작
      *          , Hibernate 외에도 EclipseLink 같은 다른 JPA 구현체도 존재 (반드시 Hibernate가 필수는 아님)
      *  - 기본적인 CRUD 메서드를 제공하며, 메서드명을 분석하여 SQL을 자동 생성.
+     *
+     *  결론) DAO는 전통적인 DB 접근 방식이고, Repository는 JPA와 ORM에 최적화된 방식
      */
 
     /** JPA는 어떻게 동작하는가?

@@ -19,7 +19,8 @@ public class User {
 
     /** Entity란?
      *  DB 테이블과 1 대 1로 맵핑되는 클래스. == 실제 데이터
-     *  JPA를 이용해 DB와 직접 CRUD 수행
+     *  JPA가 이 클래스를 사용해서 DB에서 데이터를 저장/조회
+     *  이 자체로는 CRUD 수행 X → UserRepository가 처리
      *  보통 @Table, @Id, @Column 등을 포함
      */
 
