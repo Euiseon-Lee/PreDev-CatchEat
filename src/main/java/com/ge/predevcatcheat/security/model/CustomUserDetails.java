@@ -16,6 +16,7 @@ public class CustomUserDetails implements UserDetails {
      *
      *  Spring Security의 UsernamePasswordAuthenticationFilter에서 사용됨.
      *  사용자 정보를 DB에서 가져와 Spring Security에서 사용할 수 있도록 변환하는 역할을 수행.
+     *  일반적으로 User 엔티티 자체를 그대로 사용하면 보안 관련 추가 기능을 넣기 어렵기 때문에 사용!
      *
      *  주요 역할
      *  1. `UserDetailsService`에서 `loadUserByUsername()` 호출 시 User 엔티티를 `UserDetails` 형태로 변환하여 반환.
